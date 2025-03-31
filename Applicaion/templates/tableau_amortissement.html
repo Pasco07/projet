@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau d'amortissement - Mon Site{% endblock %}
+
+{% block content %}
+    <h1>Tableau d'amortissement</h1>
+
+    <form method="get" action="{% url 'tableau_amortissement' %}">
+        <label for="type_amortissement">Choisissez un type d'amortissement :</label>
+        <select name="type_amortissement" id="type_amortissement">
+            <option value="">-- Sélectionnez --</option>
+            <option value="differe">Différé</option>
+            <option value="non_differe">Non différé</option>
+        </select>
+        <button type="submit">Valider</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amortissement Non Différé - Mon Site</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+   
+    <style>
+    .error {
+        color: red;
+        margin-bottom: 15px;
+    }
+    </style>
+
+
+</head>
+<body>
+    <h1>Amortissement Non Différé</h1>
+    <a href="{% url 'accueil' %}" class="btn-accueil">Retour à l'accueil</a>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Afficher les erreurs non liées à un champ spécifique -->
+        {% if form.non_field_errors %}
+            <div class="error">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {{ form.as_p }}
+        <button type="submit">Calculer</button>
+    </form>
+
+    {% if tableau %}
+        <h2>Résultats</h2>
+        <p><strong>Nominal :</strong> {{ nominal }} FCFA</p>
+        <p><strong>Taux facial :</strong> {{ taux_facial }} %</p>
+        <p><strong>Date de valeur :</strong> {{ date_valeur|date:"d/m/Y" }}</p>
+        <p><strong>Maturité :</strong> {{ maturite }} ans</p>
+        <p><strong>Prix pondéré :</strong> {{ prix_pondere }} FCFA</p>
+
+        <!-- Afficher le rendement -->
+        <p>
+            <strong>Rendement :</strong>
+            {% if rendement %}
+                {{ rendement|floatformat:2 }} %
+            {% else %}
+                <span class="text-danger">Non calculable</span>
+            {% endif %}
+        </p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Période</th>
+                    <th>Date</th>
+                    <th>Montant début de période</th>
+                    <th>Intérêt</th>
+                    <th>Amortissement</th>
+                    <th>Annuité</th>
+                    <th>Montant fin de période</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in tableau %}
+                    <tr>
+                        <td>{{ ligne.periode }}</td>
+                        <td>{{ ligne.date }}</td>
+                        <td>{{ ligne.montant_debut }}</td>
+                        <td>{{ ligne.interet }}</td>
+                        <td>{{ ligne.amortissement }}</td>
+                        <td>{{ ligne.annuite }}</td>
+                        <td>{{ ligne.montant_fin }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

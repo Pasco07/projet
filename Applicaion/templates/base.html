@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon Site{% endblock %}</title>
+    <!-- Charger le fichier CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                <li><a href="{% url 'a_propos' %}">À propos</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'tableau_amortissement' %}">Tableau d'amortissement</a></li>
+                <li><a href="{% url 'Nouvelle_page' %} ">Nouvelle page</a></li>
+              
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!--<footer>
+        <p>&copy; 2025 Mon Site</p>
+    </footer>-->
+
+    <!-- Charger le fichier JavaScript -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+
+
+

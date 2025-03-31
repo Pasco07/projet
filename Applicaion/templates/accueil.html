@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Mon Site{% endblock %}
+
+{% block content %}
+    <h1>Bienvenue sur la page d'accueil</h1>
+    <p>Ceci est la page d'accueil de mon site.</p>
+{% endblock %}
+
+
+<tr>
+    <td><a href="{% url 'obligation_detail' obligation.isin %}">{{ obligation.isin }}</a></td>
+    <td>{{ obligation.denomination }}</td>
+    <td>{{ obligation.adjudication }}</td>
+    <td>{{ obligation.duree }}</td>
+    <td>{{ obligation.date_echeance }}</td>
+    <td>{{ obligation.valeur_nominale }}</td>
+    <td>{{ obligation.taux_interet }}</td>
+    <td>{{ obligation.taux_coupon_couru|default:"N/A" }}</td>
+</tr>
